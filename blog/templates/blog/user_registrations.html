@@ -1,29 +1,36 @@
 {% extends 'base.html' %}
+{% from "macro/formhelpers.html" import render_field %}
 
 
 {% block title %}
-    Войти
+    Зарегистрироваться
 {% endblock title %}
 
 {% block content %}
 <h2 class="text-center">
     Регистрация пользователя
 </h2>
-<form action="" method="post">
-    <div class="d-flex justify-content-center shadow bg-white rounded">
-        <div class="col-md-8">
-            {% for field in form %}
-            <div class="card-body">
-                {{ field.label() }}
-                {{ field(class='form-control') }}
-            </div>
-            {% endfor %}
-            <br>
-            <button type="submit" class="btn btn-success btn-lg">
-                    Зарегистрироваться
-            </button>
+
+    <div class="row text-center">
+        <div class="col">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="{{ url_for('registrations.register_page') }}">
+                {{ form.csrf_token }}
+                {% for field in ['username', 'password'] %}
+                    {{ render_field(form[field]) }}
+                {% endfor %}
+
+                {{ form.submit(class="btn btn-primary mb-3") }}
+            </form>
         </div>
     </div>
-</form>
 
 {% endblock content %}

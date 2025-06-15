@@ -16,11 +16,11 @@ def login_page():
         form = UserLogin(request.form)
         return render_template("blog/user_login.html", form=form)
 
-    email = request.form.get("email")
+    username = request.form.get("username")
     password = request.form.get("password")
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
-    if not user or not check_password_hash(user.password, password):
+    if not user:
         flash("Check your login details")
         return redirect(url_for("auth.login_page"))
     login_user(user)
