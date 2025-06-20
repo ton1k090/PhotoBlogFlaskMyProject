@@ -45,3 +45,9 @@ class User(db.Model, UserMixin):
         return self.username
 
 
+class Gallery(db.Model):
+    '''Модель галлереи'''
+    __tablename__ = 'gallery'
+    id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.String(), nullable=True)
+

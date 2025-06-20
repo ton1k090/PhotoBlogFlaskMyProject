@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from werkzeug.exceptions import NotFound
 from werkzeug.security import check_password_hash
 
@@ -25,3 +25,10 @@ def login_page():
         return redirect(url_for("auth.login_page"))
     login_user(user)
     return redirect(url_for("index.main_page", pk=user.id))
+
+
+@auth.route('/logout', methods=['GET', 'POST'])
+def logout():
+    '''Выйти из аккаунта'''
+    logout_user()
+    return redirect(url_for('index.main_page'))
