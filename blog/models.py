@@ -51,3 +51,16 @@ class Gallery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String(), nullable=True)
 
+
+class Contact(db.Model):
+    '''Обратная связь'''
+    __tablename__ = 'contact'
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    email = db.Column(db.String(150))
+    subject = db.Column(db.String(150))
+    message = db.Column(db.Text)
+
+    def __repr__(self):
+        return self.first_name
